@@ -60,7 +60,7 @@ export default function Todo(props){
   );
   const viewTemplate = (
     <div className="stack-small">
-      <div className={isImportant ? "important" : "c-cb"}>
+      <div className={isImportant ? "c-cb important" : "c-cb"}>
           <input
             id={props.id}
             type="checkbox"
