@@ -21,8 +21,25 @@ const FILTER_MAP = {
 const FILTER_NAMES = Object.keys(FILTER_MAP);
 
 function App(props) {
-  const[tasks, setTasks] = useState(props.tasks);
+  const[tasks, setTasks] = useState(JSON.parse(localStorage.getItem('taskList')));
+
+
+  React.useEffect(() => {
+    const data = localStorage.getItem('taskList');
+    if(data){
+      setTasks(JSON.parse(data));
+    }
+  }, []);
+
+  React.useEffect(() => {
+    localStorage.setItem("taskList", JSON.stringify(tasks))
+  });
+
+
+
+
   const [filter, setFilter] = useState('All');
+
 
   function editTask(id, newName){
     const editedTaskList = tasks.map(task =>{
@@ -33,6 +50,7 @@ function App(props) {
     });
     setTasks(editedTaskList);
   }
+
 
   function addTask(name) {
     const newTask = { id: "todo-" + nanoid(), name: name, completed: false };
@@ -87,7 +105,7 @@ const filterList = FILTER_NAMES.map(name => (
       listHeadingRef.current.focus();
     }
   }, [tasks.length, prevTaskLength]);
-
+ 
   return (
     <div className="todoapp stack-large">
       <h1>TodoMatic</h1>

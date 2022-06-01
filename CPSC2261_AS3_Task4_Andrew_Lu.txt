@@ -1,0 +1,14 @@
+a) in Form.js the handleChange function keeps track of what is being typed,
+by updating the state on change.
+
+b) the editingTemple in the Todo component is showing this template. 
+when you click the edit button it sets editing to true and returns the editingTemplate
+that is shown. While in the editing template, handleChange keeps track on what 
+the user types in the edit name box. Once the User submits the handleSubmit function
+uses the editTask from App function to go through the tasks and changes the desired
+task to a different name based on id. It sets the state back to empty and sets editing
+to false so it renders the viewTemplate again
+
+c) in Form.js when the user submits a new task, the handlesubmits uses the
+addTask function from App.js. addTask function creates a newTask, and updates
+the state for the tasklist with the new task being appended
