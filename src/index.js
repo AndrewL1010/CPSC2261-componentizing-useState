@@ -5,12 +5,10 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-const DATA = [
-  
-]
+
 root.render(
   <React.StrictMode>
-    <App tasks={DATA}/>
+    <App/>
   </React.StrictMode>
 );
 

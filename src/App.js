@@ -5,6 +5,7 @@ import Form from './components/Form'
 import React, { useState, useRef, useEffect } from "react";
 import { nanoid } from "nanoid";
 
+
 function usePrevious(value) {
   const ref = useRef();
   useEffect(() => {
@@ -20,9 +21,11 @@ const FILTER_MAP = {
 };
 const FILTER_NAMES = Object.keys(FILTER_MAP);
 
+
 function App(props) {
   const[tasks, setTasks] = useState(JSON.parse(localStorage.getItem('taskList')));
 
+  const[isChecked, setChecked] = useState(false);
 
   React.useEffect(() => {
     const data = localStorage.getItem('taskList');
@@ -50,6 +53,7 @@ function App(props) {
     });
     setTasks(editedTaskList);
   }
+  
 
 
   function addTask(name) {
@@ -73,6 +77,7 @@ function App(props) {
     const remainingTasks = tasks.filter(task => id !== task.id);
     setTasks(remainingTasks);
   }
+  
 const taskList = tasks
 .filter(FILTER_MAP[filter])
 .map(task => (
@@ -107,9 +112,27 @@ const filterList = FILTER_NAMES.map(name => (
   }, [tasks.length, prevTaskLength]);
  
   return (
-    <div className="todoapp stack-large">
+    <div className={isChecked? "todoapp stack-large dark" : "todoapp stack-large"}>
+      <div className="switch-div">
+        <input type="checkbox" className="checkbox" id="checkbox"></input>
+        <label
+          htmlFor="checkbox"
+          className="switch-label"
+          onClick={() => {
+            setChecked(!isChecked);
+          }}
+        >
+          <div className="switch-ball"></div>
+        </label>
+      </div>
       <h1>TodoMatic</h1>
       <Form addTask={addTask}/>
+      <button className="clearAll" onClick={()=>{
+        localStorage.clear()
+        setTasks([]);
+      }}>
+        Clear All
+      </button>
       <div className="filters btn-group stack-exception">
         {filterList}
       </div>
